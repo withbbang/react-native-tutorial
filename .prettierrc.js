@@ -1,7 +1,12 @@
 module.exports = {
-  arrowParens: 'avoid',
-  bracketSameLine: true,
-  bracketSpacing: false,
+  'editor.formatOnSave': true,
+  arrowParens: 'always',
+  jsxSingleQuote: false,
+  printWidth: 80,
+  quoteProps: 'as-needed',
+  semi: true,
   singleQuote: true,
-  trailingComma: 'all',
+  tabWidth: 2,
+  trailingComma: 'none',
+  vueIndentScriptAndStyle: true,
 };
