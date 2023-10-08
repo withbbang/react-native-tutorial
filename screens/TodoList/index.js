@@ -13,7 +13,7 @@ import DateHead from '../../components/DateHead';
 import TodoItem from '../../components/TodoItem';
 import Empty from '../../components/Empty';
 
-export default function TodoList() {
+export default function TodoList({ route }) {
   const [todos, setTodos] = useState([
     { id: 1, text: '작업환경 설정', done: true },
     { id: 2, text: '리액트 네이티브 공부', done: false },
@@ -28,6 +28,7 @@ export default function TodoList() {
    * 초기값을 먼저 저장해버린 다음에 가져오기가 진행되므로 저장된 초기값만 가져오기 때문이다.
    */
   useEffect(() => {
+    console.log(route.params.data);
     todosStorage.get().then(setTodos).catch(console.error);
   }, []);
 
