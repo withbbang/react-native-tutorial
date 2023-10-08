@@ -5,12 +5,18 @@ import {
   View,
   TouchableOpacity,
   Platform,
-  TouchableNativeFeedback
+  TouchableNativeFeedback,
+  Keyboard
 } from 'react-native';
 import SVG from '../../modules/SVG';
 
 export default function AddTodo() {
   const [text, setText] = useState('');
+
+  const handlePress = () => {
+    setText('');
+    Keyboard.dismiss();
+  };
 
   const button = (
     <View style={styles.buttonStyle}>
@@ -25,12 +31,20 @@ export default function AddTodo() {
         placeholder={'할 일을 입력하세용'}
         value={text}
         onChangeText={setText}
+        onSubmitEditing={handlePress}
+        returnKeyType="done" // 키보드 엔터 아이콘 변경
       />
       {Platform.select({
-        ios: <TouchableOpacity activeOpacity={0.5}>{button}</TouchableOpacity>,
+        ios: (
+          <TouchableOpacity activeOpacity={0.5} onPress={handlePress}>
+            {button}
+          </TouchableOpacity>
+        ),
         android: (
           <View style={styles.circleWrapper}>
-            <TouchableNativeFeedback>{button}</TouchableNativeFeedback>
+            <TouchableNativeFeedback onPress={handlePress}>
+              {button}
+            </TouchableNativeFeedback>
           </View>
         )
       })}
