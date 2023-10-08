@@ -12,6 +12,12 @@ import SVG from '../../modules/SVG';
 export default function AddTodo() {
   const [text, setText] = useState('');
 
+  const button = (
+    <View style={styles.buttonStyle}>
+      <SVG type={'plus'} width={25} height={25} fill="#fff" />
+    </View>
+  );
+
   return (
     <View style={styles.block}>
       <TextInput
@@ -20,25 +26,14 @@ export default function AddTodo() {
         value={text}
         onChangeText={setText}
       />
-      {Platform.OS === 'ios' ? (
-        <>
-          {/* 터치했을 때 투명도 효과, android/ios 모두 사용 가능 */}
-          <TouchableOpacity activeOpacity={0.5}>
-            <View style={styles.buttonStyle}>
-              <SVG type={'plus'} width={25} height={25} fill="#fff" />
-            </View>
-          </TouchableOpacity>
-        </>
-      ) : (
-        <View style={styles.circleWrapper}>
-          {/* 터치했을 때 물결 효과, android만 적용 가능 */}
-          <TouchableNativeFeedback>
-            <View style={styles.buttonStyle}>
-              <SVG type={'plus'} width={25} height={25} fill="#fff" />
-            </View>
-          </TouchableNativeFeedback>
-        </View>
-      )}
+      {Platform.select({
+        ios: <TouchableOpacity activeOpacity={0.5}>{button}</TouchableOpacity>,
+        android: (
+          <View style={styles.circleWrapper}>
+            <TouchableNativeFeedback>{button}</TouchableNativeFeedback>
+          </View>
+        )
+      })}
     </View>
   );
 }
