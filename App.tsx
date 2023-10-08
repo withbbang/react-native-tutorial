@@ -5,9 +5,10 @@
  * @format
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import AddTodo from './components/AddTodo';
 import DateHead from './components/DateHead';
 import Empty from './components/Empty';
@@ -19,6 +20,38 @@ export default function App(): JSX.Element {
     { id: 2, text: '리액트 네이티브 공부', done: false },
     { id: 3, text: '투두리스트 만들기', done: false }
   ]);
+
+  /**
+   * 앱을 포그라운드로 넘길 때 todo list 가져오기
+   *
+   * <저장하는 부분보다 가져오는 부분을 먼저 호출해야한다!>
+   * useEffect는 선언 순서대로 호출하는데 저장하는 useEffect를 먼저 호출할 시
+   * 초기값을 먼저 저장해버린 다음에 가져오기가 진행되므로 저장된 초기값만 가져오기 때문이다.
+   */
+  useEffect(() => {
+    (async function () {
+      try {
+        const rawTodos = await AsyncStorage.getItem('todos');
+        if (rawTodos) {
+          const savedTodos = JSON.parse(rawTodos);
+          setTodos(savedTodos);
+        }
+      } catch (e: any) {
+        console.error('Failed to load todos');
+      }
+    })();
+  }, []);
+
+  // 앱을 백그라운드로 넘길 때 todo list 저장
+  useEffect(() => {
+    (async function () {
+      try {
+        await AsyncStorage.setItem('todos', JSON.stringify(todos));
+      } catch (e: any) {
+        console.error('Failed to save todos');
+      }
+    })();
+  }, [todos]);
 
   const handleItemInsert = (text: string) => {
     const nextId =
