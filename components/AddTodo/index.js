@@ -10,10 +10,11 @@ import {
 } from 'react-native';
 import SVG from '../../modules/SVG';
 
-export default function AddTodo() {
+export default function AddTodo({ onItemInsert }) {
   const [text, setText] = useState('');
 
   const handlePress = () => {
+    onItemInsert(text);
     setText('');
     Keyboard.dismiss();
   };
