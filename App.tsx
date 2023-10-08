@@ -8,11 +8,11 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import AddTodo from './components/AddTodo';
 import DateHead from './components/DateHead';
 import Empty from './components/Empty';
 import TodoList from './components/TodoList';
+import todosStorage from './storages/todosStorage';
 
 export default function App(): JSX.Element {
   const [todos, setTodos] = useState([
@@ -29,28 +29,12 @@ export default function App(): JSX.Element {
    * 초기값을 먼저 저장해버린 다음에 가져오기가 진행되므로 저장된 초기값만 가져오기 때문이다.
    */
   useEffect(() => {
-    (async function () {
-      try {
-        const rawTodos = await AsyncStorage.getItem('todos');
-        if (rawTodos) {
-          const savedTodos = JSON.parse(rawTodos);
-          setTodos(savedTodos);
-        }
-      } catch (e: any) {
-        console.error('Failed to load todos');
-      }
-    })();
+    todosStorage.get().then(setTodos).catch(console.error);
   }, []);
 
   // 앱을 백그라운드로 넘길 때 todo list 저장
   useEffect(() => {
-    (async function () {
-      try {
-        await AsyncStorage.setItem('todos', JSON.stringify(todos));
-      } catch (e: any) {
-        console.error('Failed to save todos');
-      }
-    })();
+    todosStorage.set(todos).catch(console.error);
   }, [todos]);
 
   const handleItemInsert = (text: string) => {
