@@ -13,13 +13,17 @@ import Home from './screens/Home';
 import Detail from './screens/Detail';
 import TodoList from './screens/TodoList';
 import { ParamsType } from './modules/Types';
+import Headerless from './screens/Headerless';
 
 const Stack = createNativeStackNavigator();
 
 export default function App(): JSX.Element {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator
+        initialRouteName="Home"
+        // screenOptions={{ headerShown: false }} // 모든 화면의 헤더 유무 설정
+      >
         {/* option.title: 화면 타이틀 지정 방법 1 */}
         <Stack.Screen
           name="Home"
@@ -67,6 +71,11 @@ export default function App(): JSX.Element {
 
             return returnValue;
           }}
+        />
+        <Stack.Screen
+          name="Headerless"
+          component={Headerless}
+          options={{ headerShown: false }}
         />
         <Stack.Screen name="TodoList" component={TodoList} />
       </Stack.Navigator>

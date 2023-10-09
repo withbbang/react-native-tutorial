@@ -18,6 +18,10 @@ export default function Home({ navigation }) {
         // onPress={() => navigation.navigate('TodoList', { data: '상남자 김영선' })}
         onPress={() => navigation.push('TodoList', { data: '상남자 김영선' })}
       />
+      <Button
+        title="Headerless 열기"
+        onPress={() => navigation.push('Headerless')}
+      />
     </View>
   );
 }
