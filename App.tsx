@@ -6,6 +6,7 @@
  */
 
 import React from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './screens/Home';
@@ -20,14 +21,44 @@ export default function App(): JSX.Element {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         {/* option.title: 화면 타이틀 지정 방법 1 */}
-        <Stack.Screen name="Home" component={Home} options={{ title: '홈' }} />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{
+            title: '홈',
+            headerStyle: {
+              backgroundColor: '#29b6f6'
+            },
+            headerTintColor: '#ffffff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+              fontSize: 20
+            }
+          }}
+        />
         {/* option.title에 라우트 파라미터값을 포함시키는 방법 */}
         <Stack.Screen
           name="Detail"
           component={Detail}
           options={({ route: { params } }: ParamsType) => {
             const returnValue = {
-              title: '상세정보 - '
+              title: '상세정보 - ',
+              headerLeft: ({ onPress }: any) => (
+                <TouchableOpacity onPress={onPress}>
+                  <Text>Left</Text>
+                </TouchableOpacity>
+              ),
+              headerTitle: ({ children }: any) => (
+                <View>
+                  <Text>{children}</Text>
+                </View>
+              ),
+              headerRight: () => (
+                <View>
+                  <Text>Right</Text>
+                </View>
+              ),
+              headerBackVisible: false // 안드로이드의 헤더 뒤로가기 버튼 유무설정
             };
 
             if (params && params.data) {
