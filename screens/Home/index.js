@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View, Button } from 'react-native';
 
 export default function Home({ navigation }) {
+  useEffect(() => {
+    navigation.setOptions({ title: '홈' }); // setOptions: 화면 타이틀 지정 방법 2
+  }, [navigation]);
+
   return (
     <View>
       <Button

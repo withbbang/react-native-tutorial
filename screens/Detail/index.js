@@ -8,7 +8,7 @@ export default function Detail({ navigation, route }) {
       <View style={styles.buttons}>
         {/* navigate: 이동하는 화면이 동일한 화면일 경우 stack에 쌓지 않고 파라미터만 변경한다. */}
         <Button
-          title="Detail 열기"
+          title="Navigate Detail 열기"
           onPress={() =>
             navigation.navigate('Detail', {
               data: 'navigate' + route.params.data
@@ -17,7 +17,7 @@ export default function Detail({ navigation, route }) {
         />
         {/* push: 화면이 이동할 경우 stack에 모조리 쌓는다 */}
         <Button
-          title="Detail 열기"
+          title="Push Detail 열기"
           onPress={() =>
             navigation.push('Detail', { data: 'push' + route.params.data })
           }
