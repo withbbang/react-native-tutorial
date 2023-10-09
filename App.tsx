@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './screens/Home';
@@ -14,11 +14,35 @@ import Detail from './screens/Detail';
 import TodoList from './screens/TodoList';
 import { ParamsType } from './modules/Types';
 import Headerless from './screens/Headerless';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
+
+function HomeScreen({ navigation }: any) {
+  return (
+    <View>
+      <Text>Home</Text>
+      <Button title="Drawer 열기" onPress={() => navigation.openDrawer()} />
+      <Button
+        title="Setting 열기"
+        onPress={() => navigation.navigate('Setting')}
+      />
+    </View>
+  );
+}
+
+function SettingScreen({ navigation }: any) {
+  return (
+    <View>
+      <Text>Setting</Text>
+      <Button title="뒤로가기" onPress={() => navigation.goBack()} />
+    </View>
+  );
+}
 
 export default function App(): JSX.Element {
-  return (
+  const stackNavigator = (
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="Home"
@@ -79,6 +103,19 @@ export default function App(): JSX.Element {
         />
         <Stack.Screen name="TodoList" component={TodoList} />
       </Stack.Navigator>
+    </NavigationContainer>
+  );
+
+  return (
+    <NavigationContainer>
+      <Drawer.Navigator
+        initialRouteName="Home"
+        backBehavior="history" // 뒤로가기 할 때 어떻게 작동할지 설정
+        screenOptions={{ drawerPosition: 'left' }}
+      >
+        <Drawer.Screen name="Home" component={HomeScreen} />
+        <Drawer.Screen name="Setting" component={SettingScreen} />
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 }
