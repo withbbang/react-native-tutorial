@@ -164,7 +164,13 @@ export default function App(): JSX.Element {
 
   return (
     <NavigationContainer>
-      <Tab.Navigator initialRouteName="Home">
+      <Tab.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          tabBarActiveTintColor: '#fb8c00', // 하단 탭 액티브 색깔
+          tabBarShowLabel: false // 하단 탭 텍스트 보여주기 유무
+        }}
+      >
         <Tab.Screen
           name="Home"
           component={HomeScreenForBottomNavigator}
