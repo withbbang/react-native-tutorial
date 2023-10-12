@@ -16,9 +16,12 @@ import { ParamsType } from './modules/Types';
 import Headerless from './screens/Headerless';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
 
 function HomeScreen({ navigation }: any) {
   return (
@@ -40,6 +43,22 @@ function SettingScreen({ navigation }: any) {
       <Button title="뒤로가기" onPress={() => navigation.goBack()} />
     </View>
   );
+}
+
+function HomeScreenForBottomNavigator() {
+  return <Text>Home</Text>;
+}
+
+function SearchScreenForBottomNavigator() {
+  return <Text>Search</Text>;
+}
+
+function NotificationScreenForBottomNavigator() {
+  return <Text>Notification</Text>;
+}
+
+function MessageScreenForBottomNavigator() {
+  return <Text>Message</Text>;
 }
 
 export default function App(): JSX.Element {
@@ -107,41 +126,86 @@ export default function App(): JSX.Element {
     </NavigationContainer>
   );
 
+  const drawNavigator = (
+    <Drawer.Navigator
+      initialRouteName="Home"
+      backBehavior="history" // 뒤로가기 할 때 어떻게 작동할지 설정
+      screenOptions={{
+        drawerPosition: 'left',
+        drawerActiveBackgroundColor: '#fb8c00',
+        drawerActiveTintColor: 'white'
+      }}
+      // drawerContent: Drawer에 아예 다른 View 보여주기
+      drawerContent={({ navigation }: any) => (
+        <SafeAreaView>
+          <Text>A Custom Drawer</Text>
+          <Button
+            onPress={() => navigation.closeDrawer()}
+            title="Drawer 닫기"
+          />
+        </SafeAreaView>
+      )}
+    >
+      <Drawer.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          title: '홈'
+          // headerLeft: () => <Text>Left</Text> // 스크린 상단 햄버거 커스터마이징
+        }}
+      />
+      <Drawer.Screen
+        name="Setting"
+        component={SettingScreen}
+        options={{ title: '설정' }}
+      />
+    </Drawer.Navigator>
+  );
+
   return (
     <NavigationContainer>
-      <Drawer.Navigator
-        initialRouteName="Home"
-        backBehavior="history" // 뒤로가기 할 때 어떻게 작동할지 설정
-        screenOptions={{
-          drawerPosition: 'left',
-          drawerActiveBackgroundColor: '#fb8c00',
-          drawerActiveTintColor: 'white'
-        }}
-        // drawerContent: Drawer에 아예 다른 View 보여주기
-        drawerContent={({ navigation }: any) => (
-          <SafeAreaView>
-            <Text>A Custom Drawer</Text>
-            <Button
-              onPress={() => navigation.closeDrawer()}
-              title="Drawer 닫기"
-            />
-          </SafeAreaView>
-        )}
-      >
-        <Drawer.Screen
+      <Tab.Navigator initialRouteName="Home">
+        <Tab.Screen
           name="Home"
-          component={HomeScreen}
+          component={HomeScreenForBottomNavigator}
           options={{
-            title: '홈'
-            // headerLeft: () => <Text>Left</Text> // 스크린 상단 햄버거 커스터마이징
+            title: '홈',
+            tabBarIcon: ({ color, size }) => (
+              <Icon name="home" color={color} size={size} />
+            )
           }}
         />
-        <Drawer.Screen
-          name="Setting"
-          component={SettingScreen}
-          options={{ title: '설정' }}
+        <Tab.Screen
+          name="Search"
+          component={SearchScreenForBottomNavigator}
+          options={{
+            title: '검색',
+            tabBarIcon: ({ color, size }) => (
+              <Icon name="search" color={color} size={size} />
+            )
+          }}
         />
-      </Drawer.Navigator>
+        <Tab.Screen
+          name="Notification"
+          component={NotificationScreenForBottomNavigator}
+          options={{
+            title: '알림',
+            tabBarIcon: ({ color, size }) => (
+              <Icon name="notifications" color={color} size={size} />
+            )
+          }}
+        />
+        <Tab.Screen
+          name="Message"
+          component={MessageScreenForBottomNavigator}
+          options={{
+            title: '알림',
+            tabBarIcon: ({ color, size }) => (
+              <Icon name="message" color={color} size={size} />
+            )
+          }}
+        />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
