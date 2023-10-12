@@ -12,6 +12,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './screens/Home';
 import Detail from './screens/Detail';
 import TodoList from './screens/TodoList';
+import Main from './screens/Main';
 import { ParamsType } from './modules/Types';
 import Headerless from './screens/Headerless';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -162,56 +163,68 @@ export default function App(): JSX.Element {
     </Drawer.Navigator>
   );
 
+  const tabNavigator = (
+    <Tab.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        tabBarActiveTintColor: '#fb8c00', // 하단 탭 액티브 색깔
+        tabBarShowLabel: false // 하단 탭 텍스트 보여주기 유무
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={HomeScreenForBottomNavigator}
+        options={{
+          title: '홈',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="home" color={color} size={size} />
+          )
+        }}
+      />
+      <Tab.Screen
+        name="Search"
+        component={SearchScreenForBottomNavigator}
+        options={{
+          title: '검색',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="search" color={color} size={size} />
+          )
+        }}
+      />
+      <Tab.Screen
+        name="Notification"
+        component={NotificationScreenForBottomNavigator}
+        options={{
+          title: '알림',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="notifications" color={color} size={size} />
+          )
+        }}
+      />
+      <Tab.Screen
+        name="Message"
+        component={MessageScreenForBottomNavigator}
+        options={{
+          title: '알림',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="message" color={color} size={size} />
+          )
+        }}
+      />
+    </Tab.Navigator>
+  );
+
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName="Home"
-        screenOptions={{
-          tabBarActiveTintColor: '#fb8c00', // 하단 탭 액티브 색깔
-          tabBarShowLabel: false // 하단 탭 텍스트 보여주기 유무
-        }}
-      >
-        <Tab.Screen
-          name="Home"
-          component={HomeScreenForBottomNavigator}
-          options={{
-            title: '홈',
-            tabBarIcon: ({ color, size }) => (
-              <Icon name="home" color={color} size={size} />
-            )
-          }}
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Main"
+          component={Main}
+          // 스택 네비게이터 헤더 비노출 처리, 비노출 안 시킬 경우 스택 & 하단탭 네비게이터 두개 동시에 보임
+          options={{ headerShown: false }}
         />
-        <Tab.Screen
-          name="Search"
-          component={SearchScreenForBottomNavigator}
-          options={{
-            title: '검색',
-            tabBarIcon: ({ color, size }) => (
-              <Icon name="search" color={color} size={size} />
-            )
-          }}
-        />
-        <Tab.Screen
-          name="Notification"
-          component={NotificationScreenForBottomNavigator}
-          options={{
-            title: '알림',
-            tabBarIcon: ({ color, size }) => (
-              <Icon name="notifications" color={color} size={size} />
-            )
-          }}
-        />
-        <Tab.Screen
-          name="Message"
-          component={MessageScreenForBottomNavigator}
-          options={{
-            title: '알림',
-            tabBarIcon: ({ color, size }) => (
-              <Icon name="message" color={color} size={size} />
-            )
-          }}
-        />
-      </Tab.Navigator>
+        <Stack.Screen name="Detail" component={Detail} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
