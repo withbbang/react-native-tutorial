@@ -45,7 +45,7 @@ function Search() {
   );
 }
 
-export default function MaterialMain() {
+export default function MaterialTopMain() {
   return (
     // createMaterialTopTabNavigator의 경우 createBottomTabNavigator와 달리 아이콘의 크기를 정해주지 않아 직접 지정해야한다.
     <Tab.Navigator
