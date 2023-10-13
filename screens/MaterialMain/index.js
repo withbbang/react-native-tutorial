@@ -1,9 +1,9 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Button, Text, View } from 'react-native';
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialTopTabNavigator();
 
 function Home({ navigation }) {
   return (
@@ -45,12 +45,12 @@ function Search() {
   );
 }
 
-export default function Main() {
+export default function MaterialMain() {
   return (
+    // createMaterialTopTabNavigator의 경우 createBottomTabNavigator와 달리 아이콘의 크기를 정해주지 않아 직접 지정해야한다.
     <Tab.Navigator
       initialRouteName="Home"
       screenOptions={{
-        tabBarActiveTintColor: '#fb8c00', // 하단 탭 액티브 색깔
         tabBarShowLabel: false // 하단 탭 텍스트 보여주기 유무
       }}
     >
@@ -58,9 +58,8 @@ export default function Main() {
         name="Home"
         component={Home}
         options={{
-          title: '홈',
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="home" color={color} size={size} />
+          tabBarIcon: ({ color }) => (
+            <Icon name="home" color={color} size={24} />
           )
         }}
       />
@@ -68,9 +67,8 @@ export default function Main() {
         name="Search"
         component={Search}
         options={{
-          title: '검색',
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="search" color={color} size={size} />
+          tabBarIcon: ({ color }) => (
+            <Icon name="search" color={color} size={24} />
           )
         }}
       />
@@ -78,9 +76,8 @@ export default function Main() {
         name="Notification"
         component={Notification}
         options={{
-          title: '알림',
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="notifications" color={color} size={size} />
+          tabBarIcon: ({ color }) => (
+            <Icon name="notifications" color={color} size={24} />
           )
         }}
       />
@@ -88,9 +85,8 @@ export default function Main() {
         name="Message"
         component={Message}
         options={{
-          title: '알림',
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="message" color={color} size={size} />
+          tabBarIcon: ({ color }) => (
+            <Icon name="message" color={color} size={24} />
           )
         }}
       />

@@ -13,6 +13,7 @@ import Home from './screens/Home';
 import Detail from './screens/Detail';
 import TodoList from './screens/TodoList';
 import Main from './screens/Main';
+import MaterialMain from './screens/MaterialMain';
 import { ParamsType } from './modules/Types';
 import Headerless from './screens/Headerless';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -217,12 +218,13 @@ export default function App(): JSX.Element {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Main"
           component={Main}
           // 스택 네비게이터 헤더 비노출 처리, 비노출 안 시킬 경우 스택 & 하단탭 네비게이터 두개 동시에 보임
           options={{ headerShown: false }}
-        />
+        /> */}
+        <Stack.Screen name="Main" component={MaterialMain} />
         <Stack.Screen name="Detail" component={Detail} />
       </Stack.Navigator>
     </NavigationContainer>
