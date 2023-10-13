@@ -51,13 +51,18 @@ export default function MaterialMain() {
     <Tab.Navigator
       initialRouteName="Home"
       screenOptions={{
-        tabBarShowLabel: false // 하단 탭 텍스트 보여주기 유무
+        // tabBarShowLabel: false, // 하단 탭 텍스트 보여주기 유무
+        tabBarActiveTintColor: '#009688', // 하단 탭 액티브 색깔
+        tabBarIndicatorStyle: {
+          backgroundColor: '#009688'
+        }
       }}
     >
       <Tab.Screen
         name="Home"
         component={Home}
         options={{
+          tabBarLabel: '홈',
           tabBarIcon: ({ color }) => (
             <Icon name="home" color={color} size={24} />
           )
@@ -67,6 +72,7 @@ export default function MaterialMain() {
         name="Search"
         component={Search}
         options={{
+          tabBarLabel: '검색',
           tabBarIcon: ({ color }) => (
             <Icon name="search" color={color} size={24} />
           )
@@ -76,6 +82,7 @@ export default function MaterialMain() {
         name="Notification"
         component={Notification}
         options={{
+          tabBarLabel: '알림',
           tabBarIcon: ({ color }) => (
             <Icon name="notifications" color={color} size={24} />
           )
@@ -85,6 +92,7 @@ export default function MaterialMain() {
         name="Message"
         component={Message}
         options={{
+          tabBarLabel: '메세지',
           tabBarIcon: ({ color }) => (
             <Icon name="message" color={color} size={24} />
           )
