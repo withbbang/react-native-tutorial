@@ -7,7 +7,10 @@
 
 import React from 'react';
 import { View, Text, TouchableOpacity, Button } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import {
+  NavigationContainer,
+  getFocusedRouteNameFromRoute
+} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './screens/Home';
 import Detail from './screens/Detail';
@@ -62,6 +65,20 @@ function NotificationScreenForBottomNavigator() {
 
 function MessageScreenForBottomNavigator() {
   return <Text>Message</Text>;
+}
+
+function getHeaderTitle(route: any): string {
+  // getFocusedRouteNameFromRoute은 화면이 제대로 바뀌기 전 까지 undefined를 반환함
+  // 따라서 값을 반환하기 전에 미리 정의된 값을 보여줘야한다.
+  const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
+  const nameMap = {
+    Home: '홈',
+    Search: '검색',
+    Notification: '알림',
+    Message: '메세지'
+  };
+
+  return nameMap[routeName];
 }
 
 export default function App(): JSX.Element {
@@ -226,9 +243,18 @@ export default function App(): JSX.Element {
           // 스택 네비게이터 헤더 비노출 처리, 비노출 안 시킬 경우 스택 & 하단탭 네비게이터 두개 동시에 보임
           options={{ headerShown: false }}
         /> */}
-        <Stack.Screen name="Main" component={MaterialBottomMain} />
+        <Stack.Screen
+          name="Main"
+          component={MaterialBottomMain}
+          options={({ route }) => ({
+            title: getHeaderTitle(route)
+          })}
+        />
         <Stack.Screen name="Detail" component={Detail} />
       </Stack.Navigator>
     </NavigationContainer>
   );
+}
+function getFocusedRouterNameFromRoute(route: any) {
+  throw new Error('Function not implemented.');
 }
