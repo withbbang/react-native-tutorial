@@ -47,13 +47,16 @@ function Search() {
 
 export default function MaterialBottomMain() {
   return (
-    // createMaterialTopTabNavigator의 경우 createBottomTabNavigator와 달리 아이콘의 크기를 정해주지 않아 직접 지정해야한다.
-    <Tab.Navigator initialRouteName="Home">
+    <Tab.Navigator
+      initialRouteName="Home"
+      shifting={true} // 해당 prop === true여야 활성화된 탭만 이름을 보여준다
+    >
       <Tab.Screen
         name="Home"
         component={Home}
         options={{
           tabBarLabel: '홈',
+          tabBarBadge: 'new',
           tabBarIcon: ({ color }) => (
             <Icon name="home" color={color} size={24} />
           )
@@ -74,6 +77,7 @@ export default function MaterialBottomMain() {
         component={Notification}
         options={{
           tabBarLabel: '알림',
+          tabBarBadge: 39,
           tabBarIcon: ({ color }) => (
             <Icon name="notifications" color={color} size={24} />
           )
@@ -84,6 +88,7 @@ export default function MaterialBottomMain() {
         component={Message}
         options={{
           tabBarLabel: '메세지',
+          tabBarBadge: true,
           tabBarIcon: ({ color }) => (
             <Icon name="message" color={color} size={24} />
           )

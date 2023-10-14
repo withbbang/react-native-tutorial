@@ -178,6 +178,7 @@ export default function App(): JSX.Element {
         component={HomeScreenForBottomNavigator}
         options={{
           title: '홈',
+          tabBarBadge: 'new',
           tabBarIcon: ({ color, size }) => (
             <Icon name="home" color={color} size={size} />
           )
