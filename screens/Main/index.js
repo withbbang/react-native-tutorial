@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Button, Text, View } from 'react-native';
@@ -6,7 +6,19 @@ import { useNavigation } from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 
-function Home({ navigation }) {
+function Home() {
+  /**
+   * Home 스크린이 처음 떴을 때만 mounted log 찍힘
+   * 일반적인 페이지 이동간에는 mounted / unmounted log가 찍히지 않는다.
+   */
+  useEffect(() => {
+    console.log('mounted');
+
+    return () => {
+      console.log('unmounted');
+    };
+  }, []);
+
   return (
     <View>
       <Text>Home</Text>
