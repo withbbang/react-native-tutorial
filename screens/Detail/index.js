@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useRoute } from '@react-navigation/native';
 import { StyleSheet, View, Text, Button } from 'react-native';
 
+function IDText() {
+  const route = useRoute();
+
+  return <Text style={styles.text}>id: {route.params.data}</Text>;
+}
+
 export default function Detail({ navigation, route }) {
+  useEffect(() => {
+    navigation.setOptions({
+      title: `상세 정보 - ${route.params.data}`
+    });
+  }, [navigation, route.params.data]);
+
   return (
     <View style={styles.block}>
-      <Text style={styles.text}>{route.params.data}</Text>
+      {/* <Text style={styles.text}>{route.params.data}</Text> */}
+      <IDText />
       <View style={styles.buttons}>
         {/* navigate: 이동하는 화면이 동일한 화면일 경우 stack에 쌓지 않고 파라미터만 변경한다. */}
         <Button
