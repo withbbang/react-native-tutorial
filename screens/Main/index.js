@@ -1,23 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Button, Text, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 
 function Home() {
   /**
-   * Home 스크린이 처음 떴을 때만 mounted log 찍힘
-   * 일반적인 페이지 이동간에는 mounted / unmounted log가 찍히지 않는다.
+   * useEffect와 달리 useFocusEffect는
+   * 현재 screen이 mounted / unmounted 되는걸 감지하여
+   * focusing 되는 상황에 따라, 화면 로직을 설계할 수 있다.
    */
-  useEffect(() => {
-    console.log('mounted');
+  useFocusEffect(
+    useCallback(() => {
+      console.log('이 화면을 보고 있음');
 
-    return () => {
-      console.log('unmounted');
-    };
-  }, []);
+      return () => {
+        console.log('다른 화면을 보러 감');
+      };
+    }, [])
+  );
 
   return (
     <View>
