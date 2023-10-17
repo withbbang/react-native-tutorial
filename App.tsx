@@ -237,19 +237,19 @@ export default function App(): JSX.Element {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen
+        <Stack.Screen
           name="Main"
           component={Main}
           // 스택 네비게이터 헤더 비노출 처리, 비노출 안 시킬 경우 스택 & 하단탭 네비게이터 두개 동시에 보임
           options={{ headerShown: false }}
-        /> */}
-        <Stack.Screen
+        />
+        {/* <Stack.Screen
           name="Main"
           component={MaterialBottomMain}
           options={({ route }) => ({
             title: getHeaderTitle(route)
           })}
-        />
+        /> */}
         <Stack.Screen name="Detail" component={Detail} />
       </Stack.Navigator>
     </NavigationContainer>

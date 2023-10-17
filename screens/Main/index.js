@@ -2,6 +2,7 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Button, Text, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 
@@ -9,14 +10,15 @@ function Home({ navigation }) {
   return (
     <View>
       <Text>Home</Text>
-      <Button
+      {/* <Button
         title="Detail 1 열기"
         onPress={() =>
           navigation.push('Detail', {
             data: 1
           })
         }
-      />
+      /> */}
+      <OpenDetailButton />
     </View>
   );
 }
@@ -42,6 +44,17 @@ function Search() {
     <View>
       <Text>Search</Text>
     </View>
+  );
+}
+
+function OpenDetailButton() {
+  const navigation = useNavigation();
+
+  return (
+    <Button
+      title="Detail 1 열기"
+      onPress={() => navigation.push('Detail', { data: 1 })}
+    />
   );
 }
 
