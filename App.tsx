@@ -255,6 +255,3 @@ export default function App(): JSX.Element {
     </NavigationContainer>
   );
 }
-function getFocusedRouterNameFromRoute(route: any) {
-  throw new Error('Function not implemented.');
-}
